@@ -10,9 +10,7 @@ package co.edu.ucundinamarca.hospitalejb.exception;
  * @author ander
  */
 public class IntegridadException extends Exception{
-
-    public IntegridadException(String string) {
+      public IntegridadException(String string) {
         super(string);
     }
-            
 }

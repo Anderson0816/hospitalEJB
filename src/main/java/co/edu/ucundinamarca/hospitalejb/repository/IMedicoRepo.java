@@ -5,27 +5,26 @@
  */
 package co.edu.ucundinamarca.hospitalejb.repository;
 
+
 import co.edu.ucundinamarca.hospitalejb.entity.Medico;
+import co.edu.ucundinamarca.hospitalejb.exception.IntegridadException;
+import co.edu.ucundinamarca.hospitalejb.exception.NoContentException;
+import co.edu.ucundinamarca.hospitalejb.exception.NotFoundObjectException;
 import java.util.List;
 import javax.ejb.Local;
-import javax.persistence.NoResultException;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotAllowedException;
 
 /**
  *
- * @author ander
+ * @author Erika Moreno
  */
 @Local
 public interface IMedicoRepo {
-    
-    public List<Medico> buscar();
-    
-    public Medico buscarPorId(Integer id) throws NoResultException;
-    
-    public void guardar(Medico medico);
-    
-    public void editar(Medico medico);
-    
-    public void eliminar(Medico medico);
-        
-    
+    public List<Medico> listar() throws NoContentException, NotAllowedException;
+    public Medico BuscarPorId(Integer id) throws NoContentException, NotAllowedException, NotFoundObjectException;
+    public void guardar(Medico medico)throws IntegridadException, BadRequestException, NotAllowedException;
+    public void eliminar(Medico medico) throws NotFoundObjectException, NotAllowedException;
+    public void editar(Medico medico)throws IntegridadException, NotFoundObjectException, BadRequestException, NotAllowedException;
+    public Medico buscarMedico(int id);
 }

@@ -6,6 +6,7 @@
 package co.edu.ucundinamarca.hospitalejb.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,39 +18,35 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 @Entity
 @Table(name = "medico")
-
-@NamedQueries({
-    @NamedQuery(name = "Medico.listarTodos", query = "SELECT c FROM Medico c")
-})
-public class Medico implements Serializable{
-
+public class Medico implements Serializable { 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "nombre", nullable = false, length = 25)
-    @Size(min = 3, max = 10, message = "Debe tener entre 3 y 10 letras")
+    
+    @Column(name = "nombre", nullable= false, length = 25)
     private String nombre;
     
-    @Column(name = "apellido", nullable = false, length = 25)
-    @Size(min = 3, max = 10, message = "Debe tener entre 3 y 10 letras")
+    @Column(name = "apellido", nullable= false, length = 25)
     private String apellido;
     
-    @Column(name = "correo", nullable = false, length = 60, unique = true)
-    private String correo;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaNacimiento;
     
-    @NotNull(message = "Objeto direccion es requerido")
-    @OneToOne(mappedBy = "medico", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Column(name = "correo", nullable= false, length = 60, unique = true)
+    private String correo;
+
+    @NotNull(message = "El objeto direccion es requerido")
+    @OneToOne(mappedBy = "medico", cascade={CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     private Direccion direccion;
     
-    
-
     public Integer getId() {
         return id;
     }
@@ -74,6 +71,14 @@ public class Medico implements Serializable{
         this.apellido = apellido;
     }
 
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     public String getCorreo() {
         return correo;
     }
@@ -90,6 +95,4 @@ public class Medico implements Serializable{
         this.direccion = direccion;
     }
     
-    
 }
-

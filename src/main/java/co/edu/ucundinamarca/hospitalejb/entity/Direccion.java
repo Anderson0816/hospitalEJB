@@ -17,26 +17,24 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "direccion")
-public class Direccion implements Serializable {
-    
+public class Direccion implements Serializable{
+  
     @Id
     @Column(name = "id")
     private Integer id;
-    
-    
-    @Column(name = "direccion_detallada", nullable = false, length = 25)
-    private String direccionDetallada;
-    
-    @Column(name = "barrio", nullable = false, length = 25)
-    private String barrio;
-    
-    @Size(max = 6, message = "Maximo 6 caracteres")
-    @Column(name = "codigo_postal", nullable = false, length = 6)
-    private String codigoPostal; 
-    
+   
     @OneToOne
     @MapsId
     private Medico medico;
+    
+    @Column(name = "direccionDetallada", nullable= false, length = 25)
+    private String direccionDetallada;
+    
+    @Column(name = "barrio", nullable= false, length = 25)
+    private String barrio;
+    
+    @Column(name = "codigoPostal", nullable= false, length = 6)
+    private String codigoPostal;
 
     public Integer getId() {
         return id;
@@ -46,6 +44,14 @@ public class Direccion implements Serializable {
         this.id = id;
     }
 
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
     public String getDireccionDetallada() {
         return direccionDetallada;
     }
@@ -53,8 +59,6 @@ public class Direccion implements Serializable {
     public void setDireccionDetallada(String direccionDetallada) {
         this.direccionDetallada = direccionDetallada;
     }
-
-   
 
     public String getBarrio() {
         return barrio;
@@ -71,15 +75,6 @@ public class Direccion implements Serializable {
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
-
-    public Medico getMedico() {
-        return medico;
-    }
-
-    public void setMedico(Medico medico) {
-        this.medico = medico;
-    }
     
     
 }
-

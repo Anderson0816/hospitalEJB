@@ -5,28 +5,27 @@
  */
 package co.edu.ucundinamarca.hospitalejb.repository;
 
+
+
 import co.edu.ucundinamarca.hospitalejb.entity.Consulta;
+import co.edu.ucundinamarca.hospitalejb.exception.IntegridadException;
+import co.edu.ucundinamarca.hospitalejb.exception.NoContentException;
+import co.edu.ucundinamarca.hospitalejb.exception.NotFoundObjectException;
 import java.util.List;
 import javax.ejb.Local;
-import javax.persistence.NoResultException;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotAllowedException;
 
 /**
  *
- * @author ander
+ * @author Erika Moreno
  */
 @Local
 public interface IConsultaRepo {
-    
-    public List<Consulta> buscar();
-    
-    public Consulta buscarPorId(Integer id) throws NoResultException;
-    
-    public void guardar(Consulta consulta);
-    
-    public void editar(Consulta consulta);
-    
-    public void eliminar(Consulta consulta);
-    
-    
+    public List<Consulta> listar() throws NoContentException, NotAllowedException;
+    public Consulta BuscarPorId(Integer id) throws NoContentException, NotAllowedException, NotFoundObjectException;
+    public void guardar(Consulta consulta)throws IntegridadException, BadRequestException, NotAllowedException;
+    public void eliminar(Consulta consulta) throws NotFoundObjectException, NotAllowedException;
+    public void editar(Consulta consulta)throws IntegridadException, NotFoundObjectException, BadRequestException, NotAllowedException;
+    public Consulta buscarConsulta(int id);
 }
-

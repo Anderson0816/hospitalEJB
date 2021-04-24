@@ -7,6 +7,7 @@ package co.edu.ucundinamarca.hospitalejb.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,23 +22,22 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "detalleconsulta")
-public class DetalleConsulta implements Serializable{
-    
+public class DetalleConsulta implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(name = "diagnostico", nullable = false, length = 25)
-    @Size(min = 3, max = 10, message = "Debe tener entre 3 y 10 letras")
+
+    @Column(name = "diagnostico", nullable = true, length = 20)
     private String diagnostico;
-    
-    @Column(name = "tratamiento", nullable = false, length = 50)
-    @Size(min = 3, max = 10, message = "Debe tener entre 3 y 10 letras")
+
+    @Column(name = "tratamiento", nullable = true, length = 20)
     private String tratamiento;
-    
+
     @ManyToOne
+
     @JoinColumn(name = "id_consulta", nullable = false)
-    private Consulta consulta; 
+    private Consulta consulta;
 
     public Integer getId() {
         return id;
@@ -63,6 +63,7 @@ public class DetalleConsulta implements Serializable{
         this.tratamiento = tratamiento;
     }
 
+    @JsonBackReference
     public Consulta getConsulta() {
         return consulta;
     }
@@ -71,6 +72,4 @@ public class DetalleConsulta implements Serializable{
         this.consulta = consulta;
     }
 
-   
 }
-

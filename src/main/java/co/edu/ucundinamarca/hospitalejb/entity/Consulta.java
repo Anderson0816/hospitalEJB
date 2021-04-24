@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.hospitalejb.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -33,18 +34,18 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Consulta.listarTodos", query = "SELECT c FROM Consulta c")
 })
-public class Consulta implements Serializable{
-    
+public class Consulta implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    
+
     @Column(name = "nombre_medico", nullable = false, length = 50)
     private String nombreMedico;
-    
+
     @OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<DetalleConsulta> detalleConsulta;
 
@@ -64,8 +65,6 @@ public class Consulta implements Serializable{
         this.fecha = fecha;
     }
 
-    
-    
     public String getNombreMedico() {
         return nombreMedico;
     }
@@ -74,6 +73,7 @@ public class Consulta implements Serializable{
         this.nombreMedico = nombreMedico;
     }
 
+    @JsonManagedReference
     public List<DetalleConsulta> getDetalleConsulta() {
         return detalleConsulta;
     }
@@ -81,7 +81,5 @@ public class Consulta implements Serializable{
     public void setDetalleConsulta(List<DetalleConsulta> detalleConsulta) {
         this.detalleConsulta = detalleConsulta;
     }
-      
-    
-}
 
+}
